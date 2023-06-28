@@ -9,7 +9,7 @@ use App\Models\Article as ArticleModel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\CreateArticleRequest;
 use App\Http\Resources\ArticleResource;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ArticleController extends Controller
 {
@@ -28,9 +28,7 @@ class ArticleController extends Controller
             $request->validated()
         );
 
-        return [
-          'status' => 'success'
-        ];
+        return new Response(['success' => true]);
     }
 
     public function show(ArticleModel $article)
@@ -45,9 +43,7 @@ class ArticleController extends Controller
             $article
         );
 
-        return [
-            'status' => 'success'
-        ];
+        return new Response(['success' => true]);
     }
 
     /**
@@ -57,8 +53,6 @@ class ArticleController extends Controller
     {
         $article->delete();
 
-        return [
-            'status' => 'success'
-        ];
+        return new Response(['success' => true]);
     }
 }

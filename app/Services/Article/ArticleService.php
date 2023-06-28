@@ -3,10 +3,9 @@
 namespace App\Services\Article;
 
 use App\Models\Article;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleService
@@ -18,12 +17,12 @@ class ArticleService
         return Article::query()->create([
             'title' => Arr::get($data, 'title'),
             'image' => $imagePath,
-            'preview_text' => Arr::get($data, 'preview_text'),
+            'preview_text' => mb_strimwidth(Arr::get($data, 'preview_text'), 0, 50, "..."),
             'detail_text' => Arr::get($data, 'detail_text')
         ]);
     }
 
-    public function fetchAll()
+    public function fetchAll(Request $request)
     {
         return Cache::remember('articles', 3600, function (){
             return Article::withCount('comments')->paginate(10);

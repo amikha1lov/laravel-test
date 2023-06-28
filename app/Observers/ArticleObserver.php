@@ -10,4 +10,9 @@ class ArticleObserver
     {
         Cache::forget('articles');
     }
+
+    public function updated()
+    {
+        Cache::forget('articles');
+    }
 }

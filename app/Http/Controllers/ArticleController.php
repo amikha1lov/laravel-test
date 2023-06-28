@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function all()
+    public function all(Request $request)
     {
-        $articles = Article::fetchAll();
+        $articles = Article::fetchAll($request);
 
         return view('public.articles', compact('articles'));
     }
